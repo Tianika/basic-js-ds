@@ -1,6 +1,7 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const { resetHistory } = require('sinon')
+const { NotImplementedError } = require('../extensions/index.js')
 
-// const { ListNode } = require('../extensions/list-node.js');
+const { ListNode } = require('../extensions/list-node.js')
 
 /**
  * Implement the Queue with a given interface via linked list (use ListNode extension above).
@@ -14,20 +15,43 @@ const { NotImplementedError } = require('../extensions/index.js');
  * queue.getUnderlyingList() // returns { value: 3, next: null }
  */
 module.exports = class Queue {
-
-  getUnderlyingList() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  constructor() {
+    this.value = null
   }
 
-  enqueue(/* value */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  getUnderlyingList() {
+    return this
+  }
+
+  enqueue(value) {
+    if (!this.value) {
+      this.value = value
+      this.next = null
+    } else {
+      let current = this
+
+      while (current.next) {
+        current = current.next
+      }
+
+      current.next = new ListNode(value)
+    }
+
+    return this
   }
 
   dequeue() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
+    let data = this
+    let delValue = this.value
 
+    if (data.next) {
+      let current = data.next
+
+      this.value = current.value
+      this.next = current.next
+    }
+
+    return delValue
+  }
 }
+//npm run test ./ test/st-queue.test.js
