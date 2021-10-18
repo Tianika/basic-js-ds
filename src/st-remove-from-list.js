@@ -20,16 +20,14 @@ const { NotImplementedError } = require('../extensions/index.js')
  */
 
 module.exports = function removeKFromList(l, k) {
-  let currentData = l.value
-  let currentNext = l.next
-
-  while (currentNext) {
-    if (currentData === k) {
-      l.value = currentNext.value
-      l.next = currentNext.next
+  let current = l
+  while (current.next) {
+    if (current.value === k) {
+      current.value = current.next.value
+      current.next = current.next.next
+    } else {
+      current = current.next
     }
-    currentData = currentData.value
-    currentNext = currentNext.next
   }
 
   return l
